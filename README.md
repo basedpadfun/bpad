@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/banner-1600x533.jpg" alt="BasedPad" width="100%" />
+  <img src="brand/banner-1500x500.jpg" alt="BasedPad" width="100%" />
 </p>
 
 <h1 align="center">
@@ -43,7 +43,7 @@ One explorer lists everything across chains, ranked by market cap: https://based
 
 ## Brand
 
-Assets in [`brand/`](brand/): `launchpad-512.png`, `launchpad-256.png`, `launchpad-badge-256.png`, `launchpad-badge-64.png`, `banner-1600x533.jpg`, `banner-1200.jpg`, chain marks in `brand/chains/`. Use them unmodified when referencing BasedPad.
+Assets in [`brand/`](brand/): `launchpad-512.png`, `launchpad-256.png`, `launchpad-badge-256.png`, `launchpad-badge-64.png`, `banner-1500x500.jpg`, `banner-1200.jpg`, chain marks in `brand/chains/`. Use them unmodified when referencing BasedPad.
 
 ## License
 

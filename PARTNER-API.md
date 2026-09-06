@@ -78,5 +78,5 @@ Every module emits a launch event you can index directly — addresses, signatur
 
 - Square: `https://basedpad.fun/brand/launchpad-512.png` (also `launchpad-256.png`)
 - Rounded badge: `https://basedpad.fun/brand/launchpad-badge-256.png` (also `launchpad-badge-64.png`)
-- Banner: `https://basedpad.fun/brand/banner-1600x533.jpg`
+- Banner: `https://basedpad.fun/brand/banner-1500x500.jpg`
 - Site: https://basedpad.fun · X: https://x.com/basedpadfun
