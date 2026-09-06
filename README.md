@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">
-  <img src="brand/launchpad-badge-64.png" width="28" align="absmiddle" alt="" />
+  <img src="brand/launchpad-badge-64x.png" width="28" align="absmiddle" alt="" />
   BasedPad — launch where the market should trade
 </h1>
 
@@ -43,7 +43,7 @@ One explorer lists everything across chains, ranked by market cap: https://based
 
 ## Brand
 
-Assets in [`brand/`](brand/): `launchpad-512.png`, `launchpad-256.png`, `launchpad-badge-256.png`, `launchpad-badge-64.png`, `banner-1500x500.jpg`, `banner-1200.jpg`, chain marks in `brand/chains/`. Use them unmodified when referencing BasedPad.
+Assets in [`brand/`](brand/): `launchpad-512.png`, `launchpad-256.png`, `launchpad-badge-256.png`, `launchpad-badge-64x.png`, `banner-1500x500.jpg`, `banner-1200.jpg`, chain marks in `brand/chains/`. Use them unmodified when referencing BasedPad.
 
 ## License
 
