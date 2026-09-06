@@ -1,0 +1,1762 @@
+[
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "startMcapUsdE18_",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "gradTargetUsdE18_",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "platformWallet_",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
+ },
+ {
+  "inputs": [],
+  "name": "TransferFailed",
+  "type": "error"
+ },
+ {
+  "inputs": [],
+  "name": "TransferFromFailed",
+  "type": "error"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "creatorRecipient",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "platformWallet",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "creatorTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "creatorQuoteAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "platformTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "platformQuoteAmount",
+    "type": "uint256"
+   }
+  ],
+  "name": "ArcFeesSplit",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "id",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "quoteToken",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "pool",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "quoteTicker",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "quoteUsdE18",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "startMcapQuote",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "gradTargetQuote",
+    "type": "uint256"
+   }
+  ],
+  "name": "ArcQuoteMarketLaunched",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "caller",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "whypeIn",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "tokensOut",
+    "type": "uint256"
+   }
+  ],
+  "name": "Bought",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "account",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "asset",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "amount",
+    "type": "uint256"
+   }
+  ],
+  "name": "FeeCreditClaimed",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "previousRecipient",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "newRecipient",
+    "type": "address"
+   }
+  ],
+  "name": "FeeRecipientUpdated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "poolQuoteBalance",
+    "type": "uint256"
+   }
+  ],
+  "name": "Graduated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "caller",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "devTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "devQuoteAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "holderTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "holderQuoteAmount",
+    "type": "uint256"
+   }
+  ],
+  "name": "HyperFeesCollected",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint256",
+    "name": "id",
+    "type": "uint256"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "creator",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "pool",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "feeRecipient",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "rewardVault",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "name",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "symbol",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "metadataURI",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "tokenIsToken0",
+    "type": "bool"
+   },
+   {
+    "indexed": false,
+    "internalType": "int24",
+    "name": "tickLower",
+    "type": "int24"
+   },
+   {
+    "indexed": false,
+    "internalType": "int24",
+    "name": "tickUpper",
+    "type": "int24"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint128",
+    "name": "liquidity",
+    "type": "uint128"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint160",
+    "name": "sqrtPriceX96",
+    "type": "uint160"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "startMcapWhype",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "gradTargetWhype",
+    "type": "uint256"
+   }
+  ],
+  "name": "HyperTokenLaunched",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "paused",
+    "type": "bool"
+   }
+  ],
+  "name": "LaunchPauseUpdated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "currentWallet",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "pendingWallet",
+    "type": "address"
+   }
+  ],
+  "name": "PlatformWalletProposed",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "previousWallet",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "newWallet",
+    "type": "address"
+   }
+  ],
+  "name": "PlatformWalletUpdated",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "usdcPool",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint32",
+    "name": "twapSeconds",
+    "type": "uint32"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint8",
+    "name": "decimals",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "ticker",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "bool",
+    "name": "enabled",
+    "type": "bool"
+   }
+  ],
+  "name": "QuoteConfigured",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [],
+  "name": "RegistryFrozen",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "buyer",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "usdcIn",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "quoteIn",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "tokensOut",
+    "type": "uint256"
+   }
+  ],
+  "name": "RoutedBuy",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "seller",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "tokensIn",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "quoteOut",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "usdcOut",
+    "type": "uint256"
+   }
+  ],
+  "name": "RoutedSell",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "caller",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "tokensIn",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "whypeOut",
+    "type": "uint256"
+   }
+  ],
+  "name": "Sold",
+  "type": "event"
+ },
+ {
+  "inputs": [],
+  "name": "ARC_CHAIN_ID",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "CREATOR_FEE_BPS",
+  "outputs": [
+   {
+    "internalType": "uint16",
+    "name": "",
+    "type": "uint16"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "FIXED_SUPPLY",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "MAX_TWAP_DEVIATION_BPS",
+  "outputs": [
+   {
+    "internalType": "uint16",
+    "name": "",
+    "type": "uint16"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "PLATFORM_FEE_BPS",
+  "outputs": [
+   {
+    "internalType": "uint16",
+    "name": "",
+    "type": "uint16"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "POOL_FEE",
+  "outputs": [
+   {
+    "internalType": "uint24",
+    "name": "",
+    "type": "uint24"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "UNISWAP_V3_FACTORY",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "USDC",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "VERSION",
+  "outputs": [
+   {
+    "internalType": "string",
+    "name": "",
+    "type": "string"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "acceptPlatformWallet",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "name": "allTokens",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "quoteIn",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "minTokensOut",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "deadline",
+    "type": "uint256"
+   }
+  ],
+  "name": "buy",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "tokensOut",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "usdcIn",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "minTokensOut",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "deadline",
+    "type": "uint256"
+   }
+  ],
+  "name": "buyWithUsdc",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "tokensOut",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "asset",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   }
+  ],
+  "name": "claimAccruedFees",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "amount",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "claimableFees",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "collectFees",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "devTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "devQuoteAmount",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "holderTokenAmount",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "holderQuoteAmount",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "usdcPool",
+    "type": "address"
+   },
+   {
+    "internalType": "uint32",
+    "name": "twapSeconds",
+    "type": "uint32"
+   },
+   {
+    "internalType": "string",
+    "name": "ticker",
+    "type": "string"
+   },
+   {
+    "internalType": "bool",
+    "name": "enabled",
+    "type": "bool"
+   }
+  ],
+  "name": "configureQuote",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "freezeRegistry",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "getLaunch",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "address",
+      "name": "token",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "pool",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "creator",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "feeRecipient",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "rewardVault",
+      "type": "address"
+     },
+     {
+      "internalType": "bool",
+      "name": "tokenIsToken0",
+      "type": "bool"
+     },
+     {
+      "internalType": "bool",
+      "name": "graduated",
+      "type": "bool"
+     },
+     {
+      "internalType": "int24",
+      "name": "tickLower",
+      "type": "int24"
+     },
+     {
+      "internalType": "int24",
+      "name": "tickUpper",
+      "type": "int24"
+     },
+     {
+      "internalType": "uint128",
+      "name": "liquidity",
+      "type": "uint128"
+     },
+     {
+      "internalType": "uint64",
+      "name": "createdAt",
+      "type": "uint64"
+     },
+     {
+      "internalType": "uint64",
+      "name": "createdBlock",
+      "type": "uint64"
+     },
+     {
+      "internalType": "uint256",
+      "name": "devFeesToken",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "devFeesQuote",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "holderFeesToken",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "holderFeesQuote",
+      "type": "uint256"
+     }
+    ],
+    "internalType": "struct BasedPadArcMarketsV2.Launch",
+    "name": "",
+    "type": "tuple"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "getQuote",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "address",
+      "name": "token",
+      "type": "address"
+     },
+     {
+      "internalType": "address",
+      "name": "usdcPool",
+      "type": "address"
+     },
+     {
+      "internalType": "uint32",
+      "name": "twapSeconds",
+      "type": "uint32"
+     },
+     {
+      "internalType": "uint8",
+      "name": "decimals",
+      "type": "uint8"
+     },
+     {
+      "internalType": "bool",
+      "name": "enabled",
+      "type": "bool"
+     },
+     {
+      "internalType": "string",
+      "name": "ticker",
+      "type": "string"
+     }
+    ],
+    "internalType": "struct BasedPadArcMarketsV2.Quote",
+    "name": "",
+    "type": "tuple"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "gradTargetQuoteOf",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "gradTargetUsdE18",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "holderClaimable",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "pure",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "isLaunchedToken",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "",
+    "type": "bool"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "quoteToken",
+    "type": "address"
+   },
+   {
+    "internalType": "string",
+    "name": "name_",
+    "type": "string"
+   },
+   {
+    "internalType": "string",
+    "name": "symbol_",
+    "type": "string"
+   },
+   {
+    "internalType": "string",
+    "name": "metadataURI_",
+    "type": "string"
+   },
+   {
+    "internalType": "address",
+    "name": "feeRecipient_",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "initialBuyUsdc",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "minTokensOut",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "deadline",
+    "type": "uint256"
+   }
+  ],
+  "name": "launch",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "pool",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "launchCount",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "launchDeployer",
+  "outputs": [
+   {
+    "internalType": "contract BasedPadArcDeployer",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "launchQuoteUsdE18Of",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "launchesPaused",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "",
+    "type": "bool"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "marketState",
+  "outputs": [
+   {
+    "components": [
+     {
+      "internalType": "uint160",
+      "name": "sqrtPriceX96",
+      "type": "uint160"
+     },
+     {
+      "internalType": "int24",
+      "name": "tick",
+      "type": "int24"
+     },
+     {
+      "internalType": "uint256",
+      "name": "spotWhypePerToken",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "marketCapWhype",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "poolWhypeBalance",
+      "type": "uint256"
+     },
+     {
+      "internalType": "uint256",
+      "name": "poolTokenBalance",
+      "type": "uint256"
+     },
+     {
+      "internalType": "bool",
+      "name": "graduationReached",
+      "type": "bool"
+     },
+     {
+      "internalType": "bool",
+      "name": "graduated",
+      "type": "bool"
+     }
+    ],
+    "internalType": "struct BasedPadArcMarketsV2.MarketState",
+    "name": "state",
+    "type": "tuple"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "pendingPlatformWallet",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "platformWallet",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "poolOfToken",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "newWallet",
+    "type": "address"
+   }
+  ],
+  "name": "proposePlatformWallet",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "quoteCount",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "name": "quoteList",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "quoteOfToken",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "quoteUsdE18",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "twapUsdE18",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "spotUsdE18",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "registryFrozen",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "",
+    "type": "bool"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "rewardVaultOfToken",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "tokensIn",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "minQuoteOut",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "deadline",
+    "type": "uint256"
+   }
+  ],
+  "name": "sell",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "quoteOut",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "tokensIn",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "minUsdcOut",
+    "type": "uint256"
+   },
+   {
+    "internalType": "address",
+    "name": "recipient",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "deadline",
+    "type": "uint256"
+   }
+  ],
+  "name": "sellForUsdc",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "usdcOut",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   },
+   {
+    "internalType": "address",
+    "name": "newRecipient",
+    "type": "address"
+   }
+  ],
+  "name": "setFeeRecipient",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "bool",
+    "name": "paused",
+    "type": "bool"
+   }
+  ],
+  "name": "setLaunchesPaused",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "name": "startMcapQuoteOf",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "startMcapUsdE18",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "token",
+    "type": "address"
+   }
+  ],
+  "name": "syncGraduation",
+  "outputs": [
+   {
+    "internalType": "bool",
+    "name": "",
+    "type": "bool"
+   }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [],
+  "name": "tickSpacing",
+  "outputs": [
+   {
+    "internalType": "int24",
+    "name": "",
+    "type": "int24"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "index",
+    "type": "uint256"
+   }
+  ],
+  "name": "tokenAt",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "uint256",
+    "name": "amount0Owed",
+    "type": "uint256"
+   },
+   {
+    "internalType": "uint256",
+    "name": "amount1Owed",
+    "type": "uint256"
+   },
+   {
+    "internalType": "bytes",
+    "name": "",
+    "type": "bytes"
+   }
+  ],
+  "name": "uniswapV3MintCallback",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ },
+ {
+  "inputs": [
+   {
+    "internalType": "int256",
+    "name": "amount0Delta",
+    "type": "int256"
+   },
+   {
+    "internalType": "int256",
+    "name": "amount1Delta",
+    "type": "int256"
+   },
+   {
+    "internalType": "bytes",
+    "name": "",
+    "type": "bytes"
+   }
+  ],
+  "name": "uniswapV3SwapCallback",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+ }
+]
